@@ -1,12 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { PrismaService } from './prisma/prisma.service';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
-  }
+  constructor(private readonly prisma: PrismaService) {}
 
-  healthz(): string {
-    return 'The app is running properly!';
+  async healthz(): Promise<string> {
+    try {
+      await this.prisma.$queryRaw`SELECT 1;`;
+      return 'The app is running properly!';
+    } catch (error) {
+      throw new InternalServerErrorException("Can't connect to the database!");
+    }
   }
 }
