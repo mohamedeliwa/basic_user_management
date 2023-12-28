@@ -58,6 +58,20 @@ export class UsersService {
   }
 
   /**
+   * updates the user's profile
+   * @returns user
+   */
+  async updateUser(
+    { id }: Prisma.UserWhereUniqueInput,
+    data: Prisma.UserUpdateInput,
+  ): Promise<User> {
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    });
+  }
+
+  /**
    * updates the user's password
    * @returns user
    */

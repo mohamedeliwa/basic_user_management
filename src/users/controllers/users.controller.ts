@@ -11,7 +11,7 @@ import {
 import { UsersService } from '../services/users.service';
 import { User } from '@prisma/client';
 import { CreateUserDto } from '../dtos/create.user.dto';
-import { UpdateUserDto } from '../dtos/update.user.dto';
+import { UpdateUserDto, UpdateUserPasswordDto } from '../dtos/update.user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/auth/decorators/public.decorator';
 
@@ -41,10 +41,20 @@ export class UsersController {
   }
 
   @ApiBearerAuth()
+  @Patch()
+  async updateUser(
+    @Req() request,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<User> {
+    const user: User = await request.user;
+    return this.usersService.updateUser({ id: user.id }, updateUserDto);
+  }
+
+  @ApiBearerAuth()
   @Patch('password/')
   async updateUserPassword(
     @Req() request,
-    @Body() { password }: UpdateUserDto,
+    @Body() { password }: UpdateUserPasswordDto,
   ): Promise<User> {
     const user: User = await request.user;
     return this.usersService.changeUserPassword({ id: user.id }, { password });
