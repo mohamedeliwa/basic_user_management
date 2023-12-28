@@ -35,24 +35,24 @@ $ sudo docker run -d --network host  --name xr-users xr-users
 - `GET /api` : public swagger OpenAPI page.
 - `GET /healthz` : protected endpoint to check database connection health.
 - `POST /auth/login` : public endpoint for users login using email and password.
-  ```json
-  - it accepts body 
+  ```ts
+  // it accepts body 
 
   {
-    "email": "string",
-    "password": "string"
+    email: string,
+    password: string
   }
 
   ```
 
 - `POST /users` : public endpoint to register new users.
-  ```json
-  - it accepts body
+  ```ts
+  // it accepts body
   
   {
-    "name": "string",
-    "email": "string",
-    "password": "string"
+    name: string,
+    email: string,
+    password: string
   }
 
 
@@ -61,21 +61,21 @@ $ sudo docker run -d --network host  --name xr-users xr-users
 - `GET /users` : protected endpoint to get the profile of the authenticated user.
 
 - `PATCH /users` : protected endpoint to update the profile of the authenticated user.
-  ```json 
-  - it accepts body
+  ```ts 
+  // it accepts body
 
   {
-    "name"? : "string",
-    "email"? : "string",
+    name?: string,
+    email?: string,
   }
   ```
 
 - `PATCH /users/password` : protected endpoint to update the password of the authenticated user.
 
-  ```json
-  - it accepts body
+  ```ts
+  // it accepts body
 
   {
-    "password": "string"
+    password: string
   }
   ```
