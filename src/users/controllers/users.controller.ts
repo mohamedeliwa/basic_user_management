@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -35,16 +36,10 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
-  @ApiParam({
-    type: Number,
-    name: 'id',
-    required: true,
-    description: 'id of the user to find',
-  })
   @ApiBearerAuth()
-  @Get(':id')
-  async findUserById(@Param() { id }: UserParamsDto): Promise<User> {
-    return this.usersService.findUserById({ id });
+  @Get()
+  async findUserById(@Req() request): Promise<User> {
+    return request.user as User;
   }
 
   @ApiParam({
