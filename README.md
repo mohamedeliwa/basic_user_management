@@ -13,6 +13,7 @@ it exposes multiple endpoints to create, update and authenticate users and also 
 
 2. Create an `.env` file in the app root directory with two entries.
   - `DATABASE_URL` which is the postgresql database server url.
+    > please note that the database url should contain credentials for SUPERUSER role or at least has CREATEDB privilege
   - `JWT_SECRET` which is the secret used to generate the JWTs.
 
 3. Build a docker image with this command, from inside the project directory
