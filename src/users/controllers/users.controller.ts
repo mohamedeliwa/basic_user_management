@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Param,
   Patch,
   Post,
   Req,
@@ -12,9 +11,8 @@ import {
 import { UsersService } from '../services/users.service';
 import { User } from '@prisma/client';
 import { CreateUserDto } from '../dtos/create.user.dto';
-import { UserParamsDto } from '../dtos/user.params.dto';
 import { UpdateUserDto } from '../dtos/update.user.dto';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/auth/decorators/public.decorator';
 
 @ApiTags('Users')
@@ -42,18 +40,13 @@ export class UsersController {
     return request.user as User;
   }
 
-  @ApiParam({
-    type: Number,
-    name: 'id',
-    required: true,
-    description: 'id of the user to update',
-  })
   @ApiBearerAuth()
-  @Patch('password/:id')
+  @Patch('password/')
   async updateUserPassword(
-    @Param() { id }: UserParamsDto,
+    @Req() request,
     @Body() { password }: UpdateUserDto,
   ): Promise<User> {
-    return this.usersService.changeUserPassword({ id }, { password });
+    const user: User = await request.user;
+    return this.usersService.changeUserPassword({ id: user.id }, { password });
   }
 }
