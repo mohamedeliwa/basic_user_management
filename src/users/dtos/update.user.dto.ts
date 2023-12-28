@@ -12,7 +12,7 @@ import {
 export class UpdateUserDto {
   @ApiProperty({
     type: String,
-    required: true,
+    required: false,
     minLength: 3,
     maxLength: 50,
     description: 'the new name of the user',
@@ -26,7 +26,7 @@ export class UpdateUserDto {
 
   @ApiProperty({
     type: String,
-    required: true,
+    required: false,
     description: 'the new email of the user',
   })
   @IsOptional()

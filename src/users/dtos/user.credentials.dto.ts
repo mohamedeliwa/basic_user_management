@@ -20,7 +20,7 @@ export class UserCredentialsDto {
 
   @ApiProperty({
     type: String,
-    required: false,
+    required: true,
     minLength: 8,
     description: 'password of the user',
   })
