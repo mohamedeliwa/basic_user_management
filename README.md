@@ -18,13 +18,13 @@ it exposes multiple endpoints to create, update and authenticate users and also 
 3. Build a docker image with this command, from inside the project directory
 
 ```sh
-docker build -t xr-users .
+$ docker build -t xr-users .
 ```
 
 4. Run the docker container
 
 ```sh
-docker run -d --network host  --name xr-users xr-users
+$ docker run -d --network host  --name xr-users xr-users
 ```
 
 5. Access the running app `Open API` page on the localhost [[http://localhost:3000/api/]]
