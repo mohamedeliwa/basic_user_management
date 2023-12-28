@@ -32,6 +32,9 @@ $ sudo docker run -d --network host  --name xr-users xr-users
 
 ## API Documentation
 
+> For more detailed api documentaion visit the OpenAPI swagger page. <br />
+> You will find details about each endpoint how to call it and about the data schemas it accepts.
+
 - `GET /api` : public swagger OpenAPI page.
 - `GET /healthz` : protected endpoint to check database connection health.
 - `POST /auth/login` : public endpoint for users login using email and password.
