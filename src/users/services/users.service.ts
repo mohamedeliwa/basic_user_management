@@ -26,6 +26,24 @@ export class UsersService {
   }
 
   /**
+   * finds a user by id
+   * @returns user
+   */
+  async findUserByEmail({
+    email,
+  }: Prisma.UserWhereUniqueInput): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found!');
+    }
+
+    return user;
+  }
+
+  /**
    * creates a new user
    * @returns created user
    */

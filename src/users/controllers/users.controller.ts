@@ -13,7 +13,8 @@ import { User } from '@prisma/client';
 import { CreateUserDto } from '../dtos/create.user.dto';
 import { UserParamsDto } from '../dtos/user.params.dto';
 import { UpdateUserDto } from '../dtos/update.user.dto';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @ApiTags('Users')
 @UsePipes(
@@ -28,6 +29,7 @@ import { ApiParam, ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Public()
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.createUser(createUserDto);
@@ -39,6 +41,7 @@ export class UsersController {
     required: true,
     description: 'id of the user to find',
   })
+  @ApiBearerAuth()
   @Get(':id')
   async findUserById(@Param() { id }: UserParamsDto): Promise<User> {
     return this.usersService.findUserById({ id });
@@ -50,6 +53,7 @@ export class UsersController {
     required: true,
     description: 'id of the user to update',
   })
+  @ApiBearerAuth()
   @Patch('password/:id')
   async updateUserPassword(
     @Param() { id }: UserParamsDto,
